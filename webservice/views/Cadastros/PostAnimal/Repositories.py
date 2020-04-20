@@ -121,19 +121,18 @@ class PostAnimalDao:
         if apenasPostUsuario :
             clausura = """ AND USU.uidFirebase = %(uidFirebase)s """
         else :
+            # OBS - CASO NÃO TIVER UID NA REQUISICAO
+            # (EX. USUARIO VISITANTE - IRA MOSTRAR POST ATÉ 35 KM)
             clausura = """ AND POST.cadastroAtivo = 'S'
                             AND round (ST_Distance_Sphere(
                                 point(POST.longitude , POST.latitude ),
                                 point(%(longitudeAtual)s , %(latitudeAtual)s )
-                            ) / 1000 ,3 ) <= """
-            if param['uidFirebase'] == '':
-                 clausura += " 15 "
-            else :
-                clausura += """
-                                ( SELECT usu_logado.distanciaFeed
+                            ) / 1000 ,3 ) <= 
+                                COALESCE (( SELECT usu_logado.distanciaFeed
                                     FROM Cade_meu_bicho.Usuarios usu_logado
                                     WHERE usu_logado.uidFirebase = %(uidFirebase)s
-                                ) """
+                                ),35) """
+
 
         sql = """SELECT 
                 POST.nomeAnimal, 
