@@ -6,6 +6,7 @@ class PostAnimalDao:
     def insere_post(request, param):
         cx = Conexao()
         cx.conectar()
+
         sql = """ insert into Cade_meu_bicho.Animais (
                 idDono,
                 idPorte,
@@ -19,7 +20,7 @@ class PostAnimalDao:
                 longitude,
                 latitude
             ) SELECT 
-                U.idUsuario,
+                u.idUsuario,
                 Cade_meu_bicho.get_id_porte (  %(porteAnimal)s ),
                 Cade_meu_bicho.get_id_tipo_animal (  %(tipoAnimal)s ),
                 upper(trim( %(nomeAnimal)s  ) ),
@@ -45,7 +46,6 @@ class PostAnimalDao:
     def atualiza_post(request, param):
         cx = Conexao()
         cx.conectar()
-
         sql = """ update Cade_meu_bicho.Animais set  
                     idPorte = Cade_meu_bicho.get_id_porte (  %(porteAnimal)s ),
                     idTipo = Cade_meu_bicho.get_id_tipo_animal (  %(tipoAnimal)s ),
@@ -62,7 +62,7 @@ class PostAnimalDao:
                     (SELECT u.idUsuario FROM Cade_meu_bicho.Usuarios u 
                         WHERE u.uidFirebase  = %(uidFirebase)s
                         and u.cadastroAtivo = 'S'
-                        LIMIT
+                        LIMIT 1
                     ) """
 
         rows = ''
@@ -99,7 +99,7 @@ class PostAnimalDao:
         cx = Conexao()
         cx.conectar()
 
-        sql = """select coalesce( (select count (1) from Cade_meu_bicho.Animais
+        sql = """select coalesce( (select COUNT(1) from Cade_meu_bicho.Animais
                 where cadastroAtivo = 'S'
                 and idDono  = 
                     (SELECT u.idUsuario FROM Cade_meu_bicho.Usuarios u 
@@ -107,10 +107,9 @@ class PostAnimalDao:
                         and u.cadastroAtivo = 'S'
                         LIMIT 1
                     )
-                 ),0) from dual"""
+                 ),0) as qnt from dual"""
 
-        return cx.select(sql, param)
-
+        return  cx.select(sql, param)
 
 
     def get_post (request, param, apenasPostUsuario=False):
@@ -158,7 +157,7 @@ class PostAnimalDao:
                     ( SELECT usu_logado.distanciaFeed 
                     FROM Cade_meu_bicho.Usuarios usu_logado
                     WHERE usu_logado.uidFirebase = %(uidFirebase)s
-                ) ) AS DISTANCIA
+                ) ) AS distanciaKM
             FROM Cade_meu_bicho.Animais POST
                 INNER JOIN Cade_meu_bicho.PorteAnimal PORTE
                     ON PORTE.idPorte = POST.idPorte 

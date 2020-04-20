@@ -12,6 +12,7 @@ class Conexao:
         self.ip = '172.1.1.165'
         self.porta = 3336
         self.usuario = 'tcc'
+        self.tic = 'CadeMeuBicho'
         self.senha = 'korathus'
 
     def conectar(self):

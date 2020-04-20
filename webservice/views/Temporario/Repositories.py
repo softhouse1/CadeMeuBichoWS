@@ -48,7 +48,7 @@ class TempDao:
                 ( SELECT usu_logado.distanciaFeed 
                 FROM Cade_meu_bicho.Usuarios usu_logado
                 WHERE usu_logado.uidFirebase = '0'
-            ) ) AS DISTANCIA
+            ) ) AS distanciaKM
         FROM Cade_meu_bicho.Animais POST
             INNER JOIN Cade_meu_bicho.PorteAnimal PORTE
                 ON PORTE.idPorte = POST.idPorte 

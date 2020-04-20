@@ -20,12 +20,12 @@ class PostAnimal:
                     'corAnimal': request.POST.get('corAnimal'),
                     'recompensa': request.POST.get('recompensa'),
                     'permiteContato': request.POST.get('permiteContato'),
-                    'logitude': request.POST.get('logitude'),
+                    'longitude': request.POST.get('longitude'),
                     'latitude': request.POST.get('latitude')
                      }
 
             postAtivos = post.posts_ativo_usuario( param )
-            if postAtivos != "0":
+            if postAtivos[0]['qnt'] != 0:
                 retorno = { 'StatusMensagem' : 'Usuário já possui um Post ativo', 'Retorno' : 'false'}
             else:
                 rows = post.insere_post(param)
@@ -41,6 +41,7 @@ class PostAnimal:
     @csrf_exempt
     def atualiza_post_animal(request):
         retorno = ''
+        post = PostAnimalDao()
         if request.POST:
             param = {
                     'uidFirebase': request.POST.get('uidFirebase'),
@@ -52,14 +53,12 @@ class PostAnimal:
                     'corAnimal': request.POST.get('corAnimal'),
                     'recompensa': request.POST.get('recompensa'),
                     'permiteContato': request.POST.get('permiteContato'),
-                    'logitude': request.POST.get('logitude'),
+                    'longitude': request.POST.get('longitude'),
                     'latitude': request.POST.get('latitude')
                      }
 
-            posts = PostAnimalDao()
-            rows = posts.atualiza_post(param)
-            print (rows)
-            if rows['RowsEffect'] != "0":
+            rows = post.atualiza_post(param)
+            if rows['RowsEffect'] != 0:
                retorno =  { 'StatusMensagem': 'Post atualizado com sucesso', 'Retorno' : 'true'}
             else:
                 retorno = { 'StatusMensagem' : 'Erro ao atualizar post', 'Retorno' : 'false'}
