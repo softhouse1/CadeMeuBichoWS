@@ -5,9 +5,15 @@ from .Login.Controller import *
 from  .Funcoes.Controller import *
 from .TipoAnimal.Controller import *
 from .PorteAnimal.Controller import *
-
+from .Temporario.Controller import *
 
 urlpatterns = [
+    # URL TEMPORARIA - SERÁ RETIRADA
+    path('UsuariosSistema', Temporario.get_usuarios),
+    path('PostSistema', Temporario.get_posts),
+    path('PostResumido', Temporario.get_posts_completo),
+
+
     #AUTENTICACAO
     path('Login', Login.login),
 
@@ -23,7 +29,6 @@ urlpatterns = [
     #POST CONSULTA
     path('PostsProximos', PostAnimal.get_posts_proximos),
     path('MeusPosts', PostAnimal.get_posts_usuario),
-
 
 
     #FUNCOES / SELECT

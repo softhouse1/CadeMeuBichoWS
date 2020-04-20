@@ -66,5 +66,3 @@ class Usuario:
             raise Http404
 
         return JsonResponse(retorno, safe=False)
-
-
