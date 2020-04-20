@@ -1,4 +1,4 @@
-from ....conexao import Conexao
+from CadeMeuBicho.webservice.conexao import Conexao
 
 class PostAnimalDao:
 

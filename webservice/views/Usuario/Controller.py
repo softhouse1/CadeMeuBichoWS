@@ -1,9 +1,8 @@
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .Repositories import UsuarioDao
-from ...Autenticacao.Login.Repositories import LoginDao
+from CadeMeuBicho.webservice.views.Login.Repositories import LoginDao
 
-from ....conexao import Conexao
 
 class Usuario:
 

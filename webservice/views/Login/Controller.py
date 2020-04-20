@@ -4,7 +4,7 @@ from django.http.response import Http404
 from django.views.decorators.csrf import csrf_exempt
 
 from .Repositories import LoginDao
-from ....conexao import Conexao
+from CadeMeuBicho.webservice.conexao import Conexao
 
 class Login:
 

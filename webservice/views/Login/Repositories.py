@@ -1,6 +1,6 @@
 from django.http.response import JsonResponse
 
-from ....conexao import Conexao
+from CadeMeuBicho.webservice.conexao import Conexao
 import MySQLdb
 import json
 
