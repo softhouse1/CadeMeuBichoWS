@@ -30,7 +30,8 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     '0.0.0.0',
     '[::1]',
-    'ngrok.io',
+    'ca5de950.ngrok.io',
+    'cademeubicho.ddns.net'
 ]
 #ALLOWED_HOSTS = []
 

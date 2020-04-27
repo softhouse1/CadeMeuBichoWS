@@ -21,17 +21,18 @@ class Login:
             print (resul)
 
             if resul != []:
-                resul = resul[0]
-                request.session['nomeUsuario'] = resul['nomeUsuario']
-                request.session['numeroCelular'] = resul['numeroCelular']
-                request.session['dddCelular'] = resul['dddCelular']
-                request.session['emailUsuario'] = resul['emailUsuario']
-                request.session['ufUsuario'] = resul['ufUsuario']
-                request.session['cidadeUsuario'] = resul['cidadeUsuario']
-                request.session['distanciaFeed'] = resul['distanciaFeed']
-                request.session['uidFirebase'] = resul['uidFirebase']
+                pass
+                # resul = resul[0]
+                # request.session['nomeUsuario'] = resul['nomeUsuario']
+                # request.session['numeroCelular'] = resul['numeroCelular']
+                # request.session['dddCelular'] = resul['dddCelular']
+                # request.session['emailUsuario'] = resul['emailUsuario']
+                # request.session['ufUsuario'] = resul['ufUsuario']
+                # request.session['cidadeUsuario'] = resul['cidadeUsuario']
+                # request.session['distanciaFeed'] = resul['distanciaFeed']
+                # request.session['uidFirebase'] = resul['uidFirebase']
             else:
-                raise Http404
+                JsonResponse(resul, safe=False)
         else:
             raise Http404
 

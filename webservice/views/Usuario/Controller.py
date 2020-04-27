@@ -11,6 +11,8 @@ class Usuario:
         retorno = ''
         if request.POST:
             ld = LoginDao()
+            print(request)
+            print(request.POST)
             param = {
                     'UidFirebase': request.POST.get('uidFirebase'),
                     'nomeUsuario': request.POST.get('nomeUsuario'),
@@ -42,6 +44,8 @@ class Usuario:
     @csrf_exempt
     def atualiza_usuario(request):
         retorno = ''
+        print(request)
+        print(request.POST)
         if request.POST:
             ld = LoginDao()
             param = {
