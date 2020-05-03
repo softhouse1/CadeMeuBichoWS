@@ -16,7 +16,16 @@ class Conexao:
     def conectar(self):
         try:
 
-            self.db = MySQLdb.connect(self.user, self.password, self.database, self.host, self.port)
+            #self.db = MySQLdb.connect(self.user, self.password, self.database, self.host, self.port)
+
+            self.db = MySQLdb.connect(
+            host='mysql669.umbler.com',
+            user='cademeubicho',
+            passwd='cadeopet',
+            db='cademeubicho',
+            port=41890 )
+
+
 
 
         except MySQLdb.DatabaseError as e:
