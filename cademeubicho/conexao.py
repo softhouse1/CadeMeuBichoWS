@@ -22,7 +22,7 @@ class Conexao:
         except MySQLdb.DatabaseError as e:
             error, _ = e.args
             if error.code == 1017:
-                print('Problemas ao conectar no')
+                print('Problemas ao conectar no: {e}')
             else:
                 print('Erro ao conectar ao banco: {e}')
             raise
