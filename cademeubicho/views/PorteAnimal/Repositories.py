@@ -6,7 +6,7 @@ class PorteAnimalDao:
         cx = Conexao()
         cx.conectar()
 
-        sql = """select descricaoPorte from cademeubicho.PorteAnimal"""
+        sql = """select descricaoPorte from PorteAnimal"""
         tipo = cx.select(sql)
         return tipo
 

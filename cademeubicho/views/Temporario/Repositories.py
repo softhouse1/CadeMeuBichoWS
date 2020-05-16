@@ -46,15 +46,15 @@ class TempDao:
                 point( '0', '0' )
                 ) / 1000 ,3.2 ) <=
                 ( SELECT usu_logado.distanciaFeed 
-                FROM Cade_meu_bicho.Usuarios usu_logado
+                FROM Usuarios usu_logado
                 WHERE usu_logado.uidFirebase = '0'
             ) ) AS distanciaKM
-        FROM Cade_meu_bicho.Animais POST
-            INNER JOIN Cade_meu_bicho.PorteAnimal PORTE
+        FROM Animais POST
+            INNER JOIN PorteAnimal PORTE
                 ON PORTE.idPorte = POST.idPorte 
             INNER JOIN Cade_meu_bicho.TipoAnimal TIPO
                 ON TIPO.idTipo = POST.idTipo
-            INNER JOIN Cade_meu_bicho.Usuarios USU
+            INNER JOIN Usuarios USU
                 ON USU.idUsuario = POST.idDono
         """
         tipo = cx.select(sql)

@@ -17,7 +17,6 @@ class Conexao:
         try:
 
             #self.db = MySQLdb.connect(self.user, self.password, self.database, self.host, self.port)
-
             self.db = MySQLdb.connect(
             host='mysql669.umbler.com',
             user='cademeubicho',
