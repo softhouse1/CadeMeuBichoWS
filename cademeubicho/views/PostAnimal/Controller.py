@@ -26,13 +26,13 @@ class PostAnimal:
 
             postAtivos = post.posts_ativo_usuario( param )
             if postAtivos[0]['qnt'] != 0:
-                retorno = { 'StatusMensagem' : 'Usuário já possui um Post ativo', 'Retorno' : 'false'}
+                retorno = { 'statusMensagem' : 'Usuário já possui um Post ativo', 'retorno' : 'false'}
             else:
                 rows = post.insere_post(param)
                 if rows['RowsEffect'] != "0":
-                   retorno =  { 'StatusMensagem': 'Post cadastrado com sucesso', 'Retorno' : 'true'}
+                   retorno =  { 'statusMensagem': 'Post cadastrado com sucesso', 'retorno' : 'true'}
                 else:
-                    retorno = { 'StatusMensagem' : 'Erro ao cadastrar post', 'Retorno' : 'false'}
+                    retorno = { 'statusMensagem' : 'Erro ao cadastrar post', 'retorno' : 'false'}
         else:
             raise Http404
 
@@ -59,9 +59,9 @@ class PostAnimal:
 
             rows = post.atualiza_post(param)
             if rows['RowsEffect'] != 0:
-               retorno =  { 'StatusMensagem': 'Post atualizado com sucesso', 'Retorno' : 'true'}
+               retorno =  { 'statusMensagem': 'Post atualizado com sucesso', 'retorno' : 'true'}
             else:
-                retorno = { 'StatusMensagem' : 'Erro ao atualizar post', 'Retorno' : 'false'}
+                retorno = { 'statusMensagem' : 'Erro ao atualizar post', 'retorno' : 'false'}
         else:
             raise Http404
 
@@ -77,9 +77,9 @@ class PostAnimal:
             rows = posts.desativa_post(param)
             print (rows)
             if rows['RowsEffect'] != "0":
-               retorno =  { 'StatusMensagem': 'Post desativado com sucesso', 'Retorno' : 'true'}
+               retorno =  { 'statusMensagem': 'Post desativado com sucesso', 'retorno' : 'true'}
             else:
-                retorno = { 'StatusMensagem' : 'Erro ao desativar post', 'Retorno' : 'false'}
+                retorno = { 'statusMensagem' : 'Erro ao desativar post', 'retorno' : 'false'}
         else:
             raise Http404
 
@@ -97,7 +97,7 @@ class PostAnimal:
         resul = post.get_post(param, False)
 
         if resul == []:
-            resul = [{'StatusMensagem': 'Nenhum post Localizado', 'Retorno': 'false'}]
+            resul = [{'statusMensagem': 'Nenhum post Localizado', 'retorno': 'false'}]
         return JsonResponse({'Posts': resul})
 
     @csrf_exempt
@@ -112,5 +112,5 @@ class PostAnimal:
         resul = post.get_post(param, True)
 
         if resul == [] :
-            resul = [{'StatusMensagem' : 'Nenhum post Localizado', 'Retorno' : 'false'}]
+            resul = [{'statusMensagem' : 'Nenhum post Localizado', 'retorno' : 'false'}]
         return JsonResponse({'Posts': resul})

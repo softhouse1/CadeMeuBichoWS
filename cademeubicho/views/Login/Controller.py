@@ -22,7 +22,6 @@ class Login:
 
             if resul != []:
                 pass
-                # resul = resul[0]
                 # request.session['nomeUsuario'] = resul['nomeUsuario']
                 # request.session['numeroCelular'] = resul['numeroCelular']
                 # request.session['dddCelular'] = resul['dddCelular']

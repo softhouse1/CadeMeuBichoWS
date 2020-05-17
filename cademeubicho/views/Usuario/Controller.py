@@ -24,15 +24,15 @@ class Usuario:
 
             resul = ld.get_usuario( param )
             if resul != []:
-                retorno = { 'StatusMensagem' : 'Usuário já cadastrado', 'Retorno' : 'false'}
+                retorno = { 'statusMensagem' : 'Usuário já cadastrado', 'Retorno' : 'false'}
             else:
                 userDao = UsuarioDao()
                 rows = userDao.insertUsuario(param)
                 print (rows)
                 if rows['RowsEffect'] != "0":
-                   retorno =  { 'StatusMensagem': 'Usuário cadastrado com sucesso', 'Retorno' : 'true'}
+                   retorno =  { 'statusMensagem': 'Usuário cadastrado com sucesso', 'retorno' : 'true'}
                 else:
-                    retorno = { 'StatusMensagem' : 'Erro ao cadastrar Usúario', 'Retorno' : 'false'}
+                    retorno = { 'statusMensagem' : 'Erro ao cadastrar Usúario', 'retorno' : 'false'}
         else:
             raise Http404
 
@@ -59,9 +59,9 @@ class Usuario:
             rows = userDao.update_usuario(param)
             print (rows)
             if rows['RowsEffect'] != "0":
-               retorno =  { 'StatusMensagem': 'Usuário atualizado com sucesso', 'Retorno' : 'true'}
+               retorno =  { 'statusMensagem': 'Usuário atualizado com sucesso', 'retorno' : 'true'}
             else:
-                retorno = { 'StatusMensagem' : 'Erro ao atualizar Usúario', 'Retorno' : 'false'}
+                retorno = { 'statusMensagem' : 'Erro ao atualizar Usúario', 'retorno' : 'false'}
         else:
             raise Http404
 
