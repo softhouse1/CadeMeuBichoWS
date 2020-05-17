@@ -25,7 +25,7 @@ class PostAnimalDao:
                 get_id_tipo_animal (  %(tipoAnimal)s ),
                 upper(trim( %(nomeAnimal)s  ) ),
                 upper(trim( %(racaAnimal)s  ) ),
-                Cade_meu_bicho.CAST_TO_INTEGER (%(idadeAnimal)s ),
+                CAST_TO_INTEGER (%(idadeAnimal)s ),
                 upper(trim( %(corAnimal)s  )),
                 0.00,
                 upper(trim( %(permiteContato)s  ) ),

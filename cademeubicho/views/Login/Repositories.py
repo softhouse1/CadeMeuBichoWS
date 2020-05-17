@@ -15,8 +15,6 @@ class LoginDao:
                     numeroCelular, 
                     dddCelular, 
                     emailUsuario,
-                    ufUsuario,
-                    cidadeUsuario ,
                     distanciaFeed,
                     uidFirebase
                 from Usuarios u 

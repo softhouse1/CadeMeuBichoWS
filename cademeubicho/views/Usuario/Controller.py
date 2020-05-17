@@ -16,8 +16,6 @@ class Usuario:
             param = {
                     'UidFirebase': request.POST.get('uidFirebase'),
                     'nomeUsuario': request.POST.get('nomeUsuario'),
-                    'ufUsuario': request.POST.get('ufUsuario'),
-                    'cidadeUsuario': request.POST.get('cidadeUsuario'),
                     'distanciaFeed': request.POST.get('distanciaFeed'),
                     'emailUsuario': request.POST.get('emailUsuario'),
                     'numeroCelular': request.POST.get('numeroCelular'),
@@ -51,8 +49,6 @@ class Usuario:
             param = {
                     'UidFirebase': request.POST.get('uidFirebase'),
                     'nomeUsuario': request.POST.get('nomeUsuario'),
-                    'ufUsuario': request.POST.get('ufUsuario'),
-                    'cidadeUsuario': request.POST.get('cidadeUsuario'),
                     'distanciaFeed': request.POST.get('distanciaFeed'),
                     'emailUsuario': request.POST.get('emailUsuario'),
                     'numeroCelular': request.POST.get('numeroCelular'),

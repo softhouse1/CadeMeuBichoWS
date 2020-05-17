@@ -39,8 +39,6 @@ class TempDao:
             USU.nomeUsuario ,
             USU.dddCelular ,
             USU.numeroCelular ,
-            USU.ufUsuario ,
-            USU.cidadeUsuario,
             ( round (ST_Distance_Sphere(
                 point(POST.longitude , POST.latitude ),
                 point( '0', '0' )

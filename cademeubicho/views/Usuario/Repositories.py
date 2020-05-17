@@ -14,8 +14,6 @@ class UsuarioDao:
                     nomeUsuario, 
                     numeroCelular,
                     dddCelular,
-                    ufUsuario,
-                    cidadeUsuario ,
                     distanciaFeed ,
                     emailUsuario ,
                     uidFirebase
@@ -23,8 +21,6 @@ class UsuarioDao:
                 %(nomeUsuario)s,
                 %(numeroCelular)s,
                 %(dddCelular)s,
-                %(ufUsuario)s,
-                %(cidadeUsuario)s,
                 CAST_TO_INTEGER (%(distanciaFeed)s ),
                 %(emailUsuario)s,
                 %(UidFirebase)s ) """
@@ -45,8 +41,6 @@ class UsuarioDao:
                     nomeUsuario = %(nomeUsuario)s,
                     numeroCelular = %(numeroCelular)s,
                     dddCelular = %(dddCelular)s,
-                    ufUsuario = %(ufUsuario)s,
-                    cidadeUsuario = %(cidadeUsuario)s,
                     distanciaFeed = CAST_TO_INTEGER (%(distanciaFeed)s ),
                     emailUsuario =  %(emailUsuario)s                WHERE  uidFirebase = %(UidFirebase)s """
 

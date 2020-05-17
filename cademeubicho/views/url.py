@@ -32,8 +32,6 @@ urlpatterns = [
 
 
     #FUNCOES / SELECT
-    path('ConsultaCidadesIbge', Funcoes.consulta_cidades_ibge),
-    path('ConsultaEstadosIbge', Funcoes.consulta_estados_ibge),
     path('TipoAnimal', TipoAnimal.tipo_animais),
     path('PorteAnimal', PorteAnimal.porte_animais),
 
