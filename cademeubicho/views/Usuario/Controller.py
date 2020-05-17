@@ -24,7 +24,7 @@ class Usuario:
 
             resul = ld.get_usuario( param )
             if resul != []:
-                retorno = { 'statusMensagem' : 'Usuário já cadastrado', 'Retorno' : 'false'}
+                retorno = { 'statusMensagem' : 'Usuário já cadastrado', 'retorno' : 'false'}
             else:
                 userDao = UsuarioDao()
                 rows = userDao.insertUsuario(param)
