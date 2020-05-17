@@ -20,20 +20,18 @@ class Login:
             resul = ld.get_usuario( param )
             print (resul)
 
-            if resul != []:
-                pass
-                # request.session['nomeUsuario'] = resul['nomeUsuario']
-                # request.session['numeroCelular'] = resul['numeroCelular']
-                # request.session['dddCelular'] = resul['dddCelular']
-                # request.session['emailUsuario'] = resul['emailUsuario']
-                # request.session['ufUsuario'] = resul['ufUsuario']
-                # request.session['cidadeUsuario'] = resul['cidadeUsuario']
-                # request.session['distanciaFeed'] = resul['distanciaFeed']
-                # request.session['uidFirebase'] = resul['uidFirebase']
-            else:
-                JsonResponse(resul, safe=False)
+            if resul == []:
+                r = {
+                    "nomeUsuario": "",
+                    "numeroCelular": "",
+                    "dddCelular": "",
+                    "emailUsuario": "",
+                    "distanciaFeed": 0,
+                    "uidFirebase": ""
+                }
+                return JsonResponse(r, safe=False)
         else:
             raise Http404
 
-        return JsonResponse(resul, safe=False)
+        return JsonResponse(resul[0], safe=False)
 
