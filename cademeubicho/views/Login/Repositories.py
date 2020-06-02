@@ -13,7 +13,7 @@ class LoginDao:
                     emailUsuario,
                     distanciaFeed,
                     uidFirebase,
-                    idFacebook
+                    coalesce(idFacebook, '') idFacebook
                 from Usuarios u 
                 where upper(cadastroAtivo) = 'S'
                 and uidFirebase =  %(UidFirebase)s 

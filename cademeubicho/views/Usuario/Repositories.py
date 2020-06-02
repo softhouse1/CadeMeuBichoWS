@@ -16,13 +16,15 @@ class UsuarioDao:
                     dddCelular,
                     distanciaFeed ,
                     emailUsuario ,
-                    uidFirebase
+                    idFacebook ,
+                    uidFirebase,
             ) values (
                 %(nomeUsuario)s,
                 %(numeroCelular)s,
                 %(dddCelular)s,
                 CAST_TO_INTEGER (%(distanciaFeed)s ),
                 %(emailUsuario)s,
+                %(idFacebook)s,
                 %(UidFirebase)s ) """
         rows = ''
         try:
