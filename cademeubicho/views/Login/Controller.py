@@ -27,7 +27,8 @@ class Login:
                     "dddCelular": "",
                     "emailUsuario": "",
                     "distanciaFeed": 0,
-                    "uidFirebase": ""
+                    "uidFirebase": "",
+                    "idFacebook" : ""
                 }
                 return JsonResponse(r, safe=False)
         else:

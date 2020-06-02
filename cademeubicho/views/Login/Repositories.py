@@ -1,8 +1,4 @@
-from django.http.response import JsonResponse
-
 from cademeubicho.conexao import Conexao
-import MySQLdb
-import json
 
 class LoginDao:
 
@@ -16,7 +12,8 @@ class LoginDao:
                     dddCelular, 
                     emailUsuario,
                     distanciaFeed,
-                    uidFirebase
+                    uidFirebase,
+                    idFacebook
                 from Usuarios u 
                 where upper(cadastroAtivo) = 'S'
                 and uidFirebase =  %(UidFirebase)s 

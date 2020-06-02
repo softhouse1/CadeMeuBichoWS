@@ -1,3 +1,10 @@
+# PARA RODAR
+
+python3 -m venv env && source env/bin/activate && pip install -r requirements.txt
+
+
+
+
 # CadeMeuBichoWS
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
@@ -14,3 +21,4 @@ $ heroku open
 or
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
