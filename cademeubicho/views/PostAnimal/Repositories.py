@@ -169,7 +169,7 @@ class PostAnimalDao:
 
         posts = cx.select(sql, param)
 
-
+        print(posts)
         for i in posts:
             i['imagens'] = ["", "", ""]
 
