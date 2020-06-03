@@ -27,7 +27,7 @@ class PostAnimal:
             postAtivos = post.posts_ativo_usuario( paramAnimais )
             if postAtivos[0]['qnt'] != 0:
                 retorno = { 'statusMensagem' : 'Usuário já possui um Post ativo', 'retorno' : 'false'}
-            elif imagens.len() <= 0:
+            elif len(imagens) <= 0:
                 retorno = {'statusMensagem': 'Escolha ao menos uma imagem', 'retorno': 'false'}
             else :
                 rows = post.insere_post(paramAnimais)
