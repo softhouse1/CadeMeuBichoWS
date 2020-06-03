@@ -10,7 +10,7 @@ class PostAnimal:
         retorno = ''
         if request.POST:
             post = PostAnimalDao()
-            param = {
+            paramAnimais = {
                     'uidFirebase': request.POST.get('uidFirebase'),
                     'porteAnimal': request.POST.get('porteAnimal'),
                     'tipoAnimal': request.POST.get('tipoAnimal'),
@@ -22,14 +22,26 @@ class PostAnimal:
                     'longitude': request.POST.get('longitude'),
                     'latitude': request.POST.get('latitude')
                      }
+            imagens = request.POST.get('imagens')
 
-            postAtivos = post.posts_ativo_usuario( param )
+            postAtivos = post.posts_ativo_usuario( paramAnimais )
             if postAtivos[0]['qnt'] != 0:
                 retorno = { 'statusMensagem' : 'Usuário já possui um Post ativo', 'retorno' : 'false'}
-            else:
-                rows = post.insere_post(param)
+            elif imagens.len() <= 0:
+                retorno = {'statusMensagem': 'Escolha ao menos uma imagem', 'retorno': 'false'}
+            else :
+                rows = post.insere_post(paramAnimais)
                 if rows['RowsEffect'] != "0":
-                   retorno =  { 'statusMensagem': 'Post cadastrado com sucesso', 'retorno' : 'true'}
+                    idAnimal = post.getIdPostAtivo(paramAnimais)[0]['CODIGO']
+                    imagens.update({'idAnimal' : idAnimal})
+
+                    fotosInseridas = post.insere_imagem_post(imagens)
+
+                    if fotosInseridas > 0:
+                        retorno =  { 'statusMensagem': 'Post cadastrado com sucesso', 'retorno' : 'true'}
+                    else:
+                        retorno =  { 'statusMensagem': 'Erro ao inserir imagens', 'retorno' : 'false'}
+
                 else:
                     retorno = { 'statusMensagem' : 'Erro ao cadastrar post', 'retorno' : 'false'}
         else:
@@ -112,3 +124,5 @@ class PostAnimal:
         if resul == [] :
             resul = [{'statusMensagem' : 'Nenhum post Localizado', 'retorno' : 'false'}]
         return JsonResponse({'Posts': resul})
+
+

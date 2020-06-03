@@ -96,6 +96,8 @@ class PostAnimalDao:
         cx = Conexao()
         cx.conectar()
 
+        uid = {'uidFirebase' : param['uidFirebase']}
+
         sql = """select coalesce( (select COUNT(1) from Animais
                 where cadastroAtivo = 'S'
                 and idDono  = 
@@ -151,6 +153,7 @@ class PostAnimalDao:
                     ) / 1000 ,3.2 ) <=
                     ( SELECT usu_logado.distanciaFeed 
                     FROM Usuarios usu_logado
+                    
                     WHERE usu_logado.uidFirebase = %(uidFirebase)s
                 ) ),35) AS distanciaKM
             FROM Animais POST
@@ -175,3 +178,38 @@ class PostAnimalDao:
 
 
         return posts
+
+
+    def getIdPostAtivo(self, param):
+        cx = Conexao()
+        cx.conectar()
+
+        post = param['uidFirebase']
+
+        sql = """
+            SELECT idAnimal as CODIGO
+                FROM Animais POST
+                INNER JOIN Usuarios USU
+                    ON USU.idUsuario = POST.idDono
+            WHERE 
+                USU.cadastroAtivo = 'S'
+                AND USU.uidFirebase  = %(uidFirebase)s
+                AND POST.cadastroAtivo = 'S'
+                LIMIT 1 """
+
+        return cx.select(sql, post)
+
+
+    def insere_imagem_post(self, param):
+        cx = Conexao()
+        cx.conectar()
+        fotosInseridas = 0
+        for i in param['imagens']:
+            try:
+                sql = f"""INSERT INTO FotosAnimal (idAnimal	, imagem) VALUES (%(idAnimal)s, {i})"""
+                rows = cx.executa(sql, param, True)
+                fotosInseridas += 1
+            except BaseException:
+                fotosInseridas += 0
+
+        return fotosInseridas
