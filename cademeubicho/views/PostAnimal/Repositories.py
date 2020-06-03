@@ -167,5 +167,11 @@ class PostAnimalDao:
         sql += clausura + "order by 17 ASC , POST.horaCadastro desc"
 
 
+        posts = cx.select(sql, param)
 
-        return cx.select(sql, param)
+
+        for i in posts:
+            i['imagens'] = ["", "", ""]
+
+
+        return posts
