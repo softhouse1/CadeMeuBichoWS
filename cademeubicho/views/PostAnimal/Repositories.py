@@ -16,7 +16,6 @@ class PostAnimalDao:
                 idadeAprox,
                 corAnimal,
                 recompensa,
-                permiteContato,
                 longitude,
                 latitude
             ) SELECT 
@@ -28,7 +27,6 @@ class PostAnimalDao:
                 CAST_TO_INTEGER (%(idadeAnimal)s ),
                 upper(trim( %(corAnimal)s  )),
                 0.00,
-                upper(trim( %(permiteContato)s  ) ),
                 trim( %(longitude)s  ),
                 trim( %(latitude)s  )
             FROM Usuarios u 
@@ -54,7 +52,6 @@ class PostAnimalDao:
                     idadeAprox = CAST_TO_INTEGER (%(idadeAnimal)s ),
                     corAnimal = upper(trim( %(corAnimal)s  )),
                     recompensa = 0.00,
-                    permiteContato = upper(trim( %(permiteContato)s  )),
                     longitude = trim( %(longitude)s  ),
                     latitude = trim( %(latitude)s  )
                 where cadastroAtivo = 'S'
@@ -140,7 +137,6 @@ class PostAnimalDao:
                 POST.racaAnimal,
                 POST.corAnimal,
                 POST.recompensa ,
-                POST.permiteContato ,
                 POST.longitude ,
                 POST.latitude ,
                 POST.cadastroAtivo AS postAtivo,

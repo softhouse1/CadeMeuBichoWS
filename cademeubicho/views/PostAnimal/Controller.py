@@ -19,7 +19,6 @@ class PostAnimal:
                     'idadeAnimal': request.POST.get('idadeAnimal'),
                     'corAnimal': request.POST.get('corAnimal'),
                     'recompensa': request.POST.get('recompensa'),
-                    'permiteContato': request.POST.get('permiteContato'),
                     'longitude': request.POST.get('longitude'),
                     'latitude': request.POST.get('latitude')
                      }
@@ -52,7 +51,6 @@ class PostAnimal:
                     'idadeAnimal': request.POST.get('idadeAnimal'),
                     'corAnimal': request.POST.get('corAnimal'),
                     'recompensa': request.POST.get('recompensa'),
-                    'permiteContato': request.POST.get('permiteContato'),
                     'longitude': request.POST.get('longitude'),
                     'latitude': request.POST.get('latitude')
                      }
