@@ -144,6 +144,7 @@ class PostAnimalDao:
                 USU.nomeUsuario ,
                 USU.dddCelular ,
                 USU.numeroCelular ,
+                coalesce(USU.idFacebook,'') idFacebook,
                 COALESCE(( round (ST_Distance(
                     point(POST.longitude , POST.latitude ),
                     point( %(longitudeAtual)s, %(latitudeAtual)s )
@@ -162,7 +163,7 @@ class PostAnimalDao:
             WHERE 
                 USU.cadastroAtivo = 'S' """
 
-        sql += clausura + "order by 15 ASC , POST.horaCadastro desc"
+        sql += clausura + " order by 15 ASC , POST.horaCadastro desc"
 
 
         print(sql, param)
