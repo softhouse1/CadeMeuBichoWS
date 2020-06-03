@@ -24,7 +24,8 @@ class TempDao:
     def busca_posts_completo(self):
         cx = Conexao()
         cx.conectar()
-        sql = """SELECT 
+        sql = """ 
+             SELECT 
             POST.nomeAnimal, 
             TIPO.descricaoTipo ,
             PORTE.descricaoPorte ,
@@ -38,7 +39,7 @@ class TempDao:
             USU.nomeUsuario ,
             USU.dddCelular ,
             USU.numeroCelular ,
-            ( round (ST_Distance_Sphere(
+            ( round (ST_Distance(
                 point(POST.longitude , POST.latitude ),
                 point( '0', '0' )
                 ) / 1000 ,3.2 ) <=

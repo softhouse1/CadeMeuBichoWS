@@ -120,7 +120,7 @@ class PostAnimalDao:
             # OBS - CASO NÃO TIVER UID NA REQUISICAO
             # (EX. USUARIO VISITANTE - IRA MOSTRAR POST ATÉ 35 KM)
             clausura = """ AND POST.cadastroAtivo = 'S'
-                            AND round (ST_Distance_Sphere(
+                            AND round (ST_Distance(
                                 point(POST.longitude , POST.latitude ),
                                 point(%(longitudeAtual)s , %(latitudeAtual)s )
                             ) / 1000 ,3 ) <= 
@@ -146,7 +146,7 @@ class PostAnimalDao:
                 USU.numeroCelular ,
                 USU.ufUsuario ,
                 USU.cidadeUsuario,
-                ( round (ST_Distance_Sphere(
+                ( round (ST_Distance(
                     point(POST.longitude , POST.latitude ),
                     point( %(longitudeAtual)s, %(latitudeAtual)s )
                     ) / 1000 ,3.2 ) <=
