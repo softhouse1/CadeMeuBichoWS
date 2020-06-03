@@ -37,7 +37,7 @@ class PostAnimalDao:
         try:
             rows = cx.executa(sql, param, True)
         except BaseException:
-            rows = {'RowsEffect': "0"}
+            rows = {'RowsEffect': "0", "Error" : rows}
 
         return rows
 

@@ -43,7 +43,7 @@ class PostAnimal:
                         retorno =  { 'statusMensagem': 'Erro ao inserir imagens', 'retorno' : 'false'}
 
                 else:
-                    retorno = { 'statusMensagem' : 'Erro ao cadastrar post', 'retorno' : 'false'}
+                    retorno = { 'statusMensagem' : 'Erro ao cadastrar post - '+rows['Error'], 'retorno' : 'false'}
         else:
             raise Http404
 
