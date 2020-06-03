@@ -171,7 +171,7 @@ class PostAnimalDao:
 
         print(posts)
         for i in posts:
-            i['imagens'] = ["", "", ""]
+            i['imagens'] = ["AAAA", "BBBB", "CCCCC"]
 
 
         return posts

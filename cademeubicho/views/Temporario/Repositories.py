@@ -31,7 +31,6 @@ class TempDao:
             POST.racaAnimal,
             POST.corAnimal,
             POST.recompensa ,
-            POST.permiteContato ,
             POST.longitude ,
             POST.latitude ,
             POST.cadastroAtivo AS postAtivo,
@@ -50,10 +49,12 @@ class TempDao:
         FROM Animais POST
             INNER JOIN PorteAnimal PORTE
                 ON PORTE.idPorte = POST.idPorte 
-            INNER JOIN Cade_meu_bicho.TipoAnimal TIPO
+            INNER JOIN TipoAnimal TIPO
                 ON TIPO.idTipo = POST.idTipo
             INNER JOIN Usuarios USU
                 ON USU.idUsuario = POST.idDono
         """
+
+
         tipo = cx.select(sql)
         return tipo
