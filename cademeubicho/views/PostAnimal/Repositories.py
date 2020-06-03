@@ -120,17 +120,17 @@ class PostAnimalDao:
             # OBS - CASO NÃO TIVER UID NA REQUISICAO
             # (EX. USUARIO VISITANTE - IRA MOSTRAR POST ATÉ 35 KM)
             clausura = """ AND POST.cadastroAtivo = 'S'
-                            AND round (ST_Distance(
+                            AND COALESCE(round (ST_Distance(
                                 point(POST.longitude , POST.latitude ),
                                 point(%(longitudeAtual)s , %(latitudeAtual)s )
-                            ) / 1000 ,3 ) <= 
+                            ) / 1000 ,3 ),0) <= 
                                 COALESCE (( SELECT usu_logado.distanciaFeed
                                     FROM Usuarios usu_logado
                                     WHERE usu_logado.uidFirebase = %(uidFirebase)s
                                 ),35) """
 
 
-        sql = """SELECT 
+        sql = """ SELECT 
                 POST.nomeAnimal, 
                 TIPO.descricaoTipo ,
                 PORTE.descricaoPorte ,
@@ -144,16 +144,14 @@ class PostAnimalDao:
                 USU.nomeUsuario ,
                 USU.dddCelular ,
                 USU.numeroCelular ,
-                USU.ufUsuario ,
-                USU.cidadeUsuario,
-                ( round (ST_Distance(
+                COALESCE(( round (ST_Distance(
                     point(POST.longitude , POST.latitude ),
                     point( %(longitudeAtual)s, %(latitudeAtual)s )
                     ) / 1000 ,3.2 ) <=
                     ( SELECT usu_logado.distanciaFeed 
                     FROM Usuarios usu_logado
                     WHERE usu_logado.uidFirebase = %(uidFirebase)s
-                ) ) AS distanciaKM
+                ) ),35) AS distanciaKM
             FROM Animais POST
                 INNER JOIN PorteAnimal PORTE
                     ON PORTE.idPorte = POST.idPorte 
@@ -162,11 +160,12 @@ class PostAnimalDao:
                 INNER JOIN Usuarios USU
                     ON USU.idUsuario = POST.idDono
             WHERE 
-                USU.cadastroAtivo = 'S'"""
+                USU.cadastroAtivo = 'S' """
 
         sql += clausura + "order by 17 ASC , POST.horaCadastro desc"
 
 
+        print(sql, param)
         posts = cx.select(sql, param)
 
         print(posts)
