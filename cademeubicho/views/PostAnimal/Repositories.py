@@ -162,7 +162,7 @@ class PostAnimalDao:
             WHERE 
                 USU.cadastroAtivo = 'S' """
 
-        sql += clausura + "order by 17 ASC , POST.horaCadastro desc"
+        sql += clausura + "order by 15 ASC , POST.horaCadastro desc"
 
 
         print(sql, param)
