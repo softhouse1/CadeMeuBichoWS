@@ -133,6 +133,8 @@ class PostAnimalDao:
 
 
         sql = """ SELECT 
+                USU.idUsuario as idUsuario,
+                POST.idAnimal AS ID_POST,
                 POST.nomeAnimal, 
                 TIPO.descricaoTipo ,
                 PORTE.descricaoPorte ,
@@ -143,9 +145,8 @@ class PostAnimalDao:
                 POST.latitude ,
                 POST.cadastroAtivo AS postAtivo,
                 POST.horaCadastro,
-                USU.nomeUsuario ,
-                USU.dddCelular ,
-                USU.numeroCelular ,
+                USU.nomeUsuario,
+                'https://api.whatsapp.com/send?phone=55'||USU.dddCelular|| USU.numeroCelular as celularWhatsApp,
                 coalesce(USU.idFacebook,'') idFacebook,
                 COALESCE(( round (ST_Distance(
                     point(POST.longitude , POST.latitude ),
@@ -166,16 +167,19 @@ class PostAnimalDao:
             WHERE 
                 USU.cadastroAtivo = 'S' """
 
-        sql += clausura + " order by 15 ASC , POST.horaCadastro desc"
+        sql += clausura + " order by 13 ASC , POST.horaCadastro desc"
 
 
         print(sql, param)
         posts = cx.select(sql, param)
 
-        print(posts)
-        for i in posts:
-            i['imagens'] = ["AAAA", "BBBB", "CCCCC"]
+        for p in posts:
+            imagens = request.get_imagem_post(p['ID_POST'])
+            p['imagens'] =[]
+            for  i in imagens:
+                p['imagens'].append(i['imagem'])
 
+            del p['ID_POST']
 
         return posts
 
@@ -215,3 +219,10 @@ class PostAnimalDao:
                 fotosInseridas += 0
 
         return fotosInseridas
+
+
+    def get_imagem_post(request, idPost):
+        cx = Conexao()
+        cx.conectar()
+
+        return cx.select("SELECT imagem FROM FotosAnimal WHERE idAnimal = "+str(idPost))
