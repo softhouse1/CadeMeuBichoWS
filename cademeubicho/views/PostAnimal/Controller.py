@@ -22,7 +22,9 @@ class PostAnimal:
                     'longitude': request.POST.get('longitude'),
                     'latitude': request.POST.get('latitude')
                      }
-            imagens = request.POST.get('imagens')
+            imagens = { 'imagens' : request.POST.get('imagens') }
+
+            print(request.POST.dict())
 
             postAtivos = post.posts_ativo_usuario( paramAnimais )
             if postAtivos[0]['qnt'] != 0:
@@ -33,6 +35,8 @@ class PostAnimal:
                 rows = post.insere_post(paramAnimais)
                 if rows['RowsEffect'] != "0":
                     idAnimal = post.getIdPostAtivo(paramAnimais)[0]['CODIGO']
+                    print(imagens)
+                    print(idAnimal)
                     imagens.update({'idAnimal' : idAnimal})
 
                     fotosInseridas = post.insere_imagem_post(imagens)
@@ -43,7 +47,7 @@ class PostAnimal:
                         retorno =  { 'statusMensagem': 'Erro ao inserir imagens', 'retorno' : 'false'}
 
                 else:
-                    retorno = { 'statusMensagem' : 'Erro ao cadastrar post - '+rows['Error'], 'retorno' : 'false'}
+                    retorno = { 'statusMensagem' : 'Erro ao cadastrar post', 'retorno' : 'false'}
         else:
             raise Http404
 

@@ -184,7 +184,7 @@ class PostAnimalDao:
         cx = Conexao()
         cx.conectar()
 
-        post = param['uidFirebase']
+        post = { 'uidFirebase' : param['uidFirebase'] }
 
         sql = """
             SELECT idAnimal as CODIGO
@@ -204,10 +204,12 @@ class PostAnimalDao:
         cx = Conexao()
         cx.conectar()
         fotosInseridas = 0
-        for i in param['imagens']:
+        for i in param['imagens'].split("***ROGER_LIMA_GAMBIARRA***"):
             try:
-                sql = f"""INSERT INTO FotosAnimal (idAnimal	, imagem) VALUES (%(idAnimal)s, {i})"""
+                sql = f"""INSERT INTO FotosAnimal (idAnimal	, imagem) VALUES (%(idAnimal)s, '{i}')"""
+
                 rows = cx.executa(sql, param, True)
+
                 fotosInseridas += 1
             except BaseException:
                 fotosInseridas += 0
