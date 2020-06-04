@@ -146,7 +146,11 @@ class PostAnimalDao:
                 POST.cadastroAtivo AS postAtivo,
                 POST.horaCadastro,
                 USU.nomeUsuario,
-                'https://api.whatsapp.com/send?phone=55'||USU.dddCelular|| USU.numeroCelular as celularWhatsApp,
+                case when USU.numeroCelular is null or USU.numeroCelular == '' then 
+                    ''
+                else
+                'https://api.whatsapp.com/send?phone=55'||USU.dddCelular|| USU.numeroCelular 
+                end as celularWhatsApp,
                 coalesce(USU.idFacebook,'') idFacebook,
                 COALESCE(( round (ST_Distance(
                     point(POST.longitude , POST.latitude ),
