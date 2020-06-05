@@ -27,7 +27,7 @@ class PostAnimal:
             print(request.POST.dict())
 
             postAtivos = post.posts_ativo_usuario( paramAnimais )
-            if postAtivos[0]['qnt'] != 0:
+            if postAtivos[0]['qnt'] == 0:
                 retorno = { 'statusMensagem' : 'Usuário já possui um Post ativo', 'retorno' : 'false'}
             elif len(imagens) <= 0:
                 retorno = {'statusMensagem': 'Escolha ao menos uma imagem', 'retorno': 'false'}
@@ -103,8 +103,8 @@ class PostAnimal:
     def get_posts_proximos(request):
         param = {
             'uidFirebase': request.POST.get('uidFirebase'),
-            'longitudeAtual': request.POST.get('longitudeAtual'),
-            'latitudeAtual': request.POST.get('latitudeAtual')
+            'longitudeAtual': request.POST.get('longitude'),
+            'latitudeAtual': request.POST.get('latitude')
         }
         post = PostAnimalDao()
         resul = []
@@ -118,8 +118,8 @@ class PostAnimal:
     def get_posts_usuario(request):
         param = {
             'uidFirebase' : request.POST.get('uidFirebase') ,
-            'longitudeAtual': request.POST.get('longitudeAtual'),
-            'latitudeAtual' : request.POST.get('latitudeAtual')
+            'longitudeAtual': request.POST.get('longitude'),
+            'latitudeAtual' : request.POST.get('latitude')
         }
         post = PostAnimalDao()
         resul = []

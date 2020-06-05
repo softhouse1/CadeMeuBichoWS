@@ -141,12 +141,13 @@ class PostAnimalDao:
                 POST.racaAnimal,
                 POST.corAnimal,
                 POST.recompensa ,
-                POST.longitude ,
+                POST.longitude , 
                 POST.latitude ,
+                POST.idadeAprox as idadeAnimal,
                 POST.cadastroAtivo AS postAtivo,
-                POST.horaCadastro,
+                '2020-01-01 00:00:00' as horaCadastro,
                 USU.nomeUsuario,
-                case when USU.numeroCelular is null or USU.numeroCelular == '' then 
+                case when USU.numeroCelular is null or USU.numeroCelular = '' then 
                     ''
                 else
                 'https://api.whatsapp.com/send?phone=55'||USU.dddCelular|| USU.numeroCelular 
@@ -171,7 +172,8 @@ class PostAnimalDao:
             WHERE 
                 USU.cadastroAtivo = 'S' """
 
-        sql += clausura + " order by 13 ASC , POST.horaCadastro desc"
+       # sql += clausura + " order by 13 ASC , POST.horaCadastro desc"
+#   DATE_FORMAT(POST.horaCadastro, '%W %M %e %Y') as horaCadastro,
 
 
         print(sql, param)
@@ -185,6 +187,8 @@ class PostAnimalDao:
 
             del p['ID_POST']
 
+
+        print (posts)
         return posts
 
 
