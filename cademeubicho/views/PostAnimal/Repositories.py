@@ -136,6 +136,7 @@ class PostAnimalDao:
 
         sql = """ SELECT 
                 USU.idUsuario as idUsuario,
+                USU.uidFirebase as idFirebaseUsu,
                 POST.idAnimal AS ID_POST,
                 POST.nomeAnimal, 
                 TIPO.descricaoTipo ,
@@ -174,7 +175,7 @@ class PostAnimalDao:
             WHERE 
                 USU.cadastroAtivo = 'S' """
 
-        sql += clausura + " order by distanciaKM ASC , POST.horaCadastro desc "
+        sql += clausura + " order by distanciaKM ASC , POST.horaCadastro desc limit 5"
 
         posts = cx.select(sql, param)
 
