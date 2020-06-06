@@ -116,20 +116,22 @@ class PostAnimalDao:
         cx.conectar()
         clausura = ''
 
+
         if apenasPostUsuario :
             clausura = """ AND USU.uidFirebase = %(uidFirebase)s """
         else :
+            pass
             # OBS - CASO NÃO TIVER UID NA REQUISICAO
             # (EX. USUARIO VISITANTE - IRA MOSTRAR POST ATÉ 35 KM)
-            clausura = """ AND POST.cadastroAtivo = 'S'
-                            AND COALESCE(round (ST_Distance(
-                                point(POST.longitude , POST.latitude ),
-                                point(%(longitudeAtual)s , %(latitudeAtual)s )
-                            ) / 1000 ,3 ),0) <= 
-                                COALESCE (( SELECT usu_logado.distanciaFeed
-                                    FROM Usuarios usu_logado
-                                    WHERE usu_logado.uidFirebase = %(uidFirebase)s
-                                ),35) """
+            clausura = """ AND POST.cadastroAtivo = 'S' """
+                            # AND COALESCE(round (ST_Distance(
+                            #     point(POST.longitude , POST.latitude ),
+                            #     point(%(longitudeAtual)s , %(latitudeAtual)s )
+                            # ) / 1000 ,3 ),0) <=
+                            #     COALESCE (( SELECT usu_logado.distanciaFeed
+                            #         FROM Usuarios usu_logado
+                            #         WHERE usu_logado.uidFirebase = %(uidFirebase)s
+                            #     ),35) """
 
 
         sql = """ SELECT 
@@ -145,13 +147,14 @@ class PostAnimalDao:
                 POST.latitude ,
                 POST.idadeAprox as idadeAnimal,
                 POST.cadastroAtivo AS postAtivo,
-                '2020-01-01 00:00:00' as horaCadastro,
+                cast(POST.horaCadastro as char) as horaCadastro,
                 USU.nomeUsuario,
                 case when USU.numeroCelular is null or USU.numeroCelular = '' then 
                     ''
                 else
-                'https://api.whatsapp.com/send?phone=55'||USU.dddCelular|| USU.numeroCelular 
+                CONCAT('https://api.whatsapp.com/send?phone=+55', USU.dddCelular, USU.numeroCelular)
                 end as celularWhatsApp,
+                USU.dddCelular, USU.numeroCelular,
                 coalesce(USU.idFacebook,'') idFacebook,
                 COALESCE(( round (ST_Distance(
                     point(POST.longitude , POST.latitude ),
@@ -159,7 +162,6 @@ class PostAnimalDao:
                     ) / 1000 ,3.2 ) <=
                     ( SELECT usu_logado.distanciaFeed 
                     FROM Usuarios usu_logado
-                    
                     WHERE usu_logado.uidFirebase = %(uidFirebase)s
                 ) ),35) AS distanciaKM
             FROM Animais POST
@@ -172,15 +174,13 @@ class PostAnimalDao:
             WHERE 
                 USU.cadastroAtivo = 'S' """
 
-       # sql += clausura + " order by 13 ASC , POST.horaCadastro desc"
-#   DATE_FORMAT(POST.horaCadastro, '%W %M %e %Y') as horaCadastro,
+        sql += clausura + " order by distanciaKM ASC , POST.horaCadastro desc "
 
-
-        print(sql, param)
         posts = cx.select(sql, param)
 
+
         for p in posts:
-            imagens = request.get_imagem_post(p['ID_POST'])
+            imagens = request.get_imagem_post(p['ID_POST'], cx)
             p['imagens'] =[]
             for  i in imagens:
                 p['imagens'].append(i['imagem'])
@@ -188,7 +188,7 @@ class PostAnimalDao:
             del p['ID_POST']
 
 
-        print (posts)
+        print (param, posts)
         return posts
 
 
@@ -229,8 +229,5 @@ class PostAnimalDao:
         return fotosInseridas
 
 
-    def get_imagem_post(request, idPost):
-        cx = Conexao()
-        cx.conectar()
-
-        return cx.select("SELECT imagem FROM FotosAnimal WHERE idAnimal = "+str(idPost))
+    def get_imagem_post(request, idPost, con):
+        return con.select("SELECT imagem FROM FotosAnimal WHERE idAnimal = "+str(idPost))
