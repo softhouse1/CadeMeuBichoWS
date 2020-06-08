@@ -5,9 +5,12 @@ from cademeubicho.views.Login.Repositories import LoginDao
 
 
 def retorna_telefone(ddd, telefone):
-    print(ddd, telefone)
-    ddd = str(int(ddd))
-    telefone = str(int(telefone))
+    try:
+        ddd = str(int(ddd))
+        telefone = str(int(telefone))
+    except:
+        return '', ''
+
     if ddd not in ('11', '12', '13', '14', '15', '16', '17', '18',
                    '19', '21', '22', '24', '27', '28', '31', '32',
                    '33', '34', '35', '37', '38', '41', '42', '43',
@@ -52,16 +55,6 @@ class Usuario:
             if resul != []:
                 retorno = { 'statusMensagem' : 'Usuário já cadastrado', 'retorno' : 'false'}
             else:
-
-                #valida telefone
-
-                ret = retorna_telefone(param['dddCelular'], param['numeroCelular'])
-                if 'Erro' in ret:
-                    return JsonResponse({'statusMensagem': ret['Mensagem'], 'retorno': 'false'}, safe=False)
-
-                else:
-                    param['dddCelular'], param['numeroCelular'] = ret
-
 
                 userDao = UsuarioDao()
                 rows = userDao.insertUsuario(param)
