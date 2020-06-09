@@ -17,14 +17,14 @@ class UsuarioDao:
                     distanciaFeed ,
                     emailUsuario ,
                     idFacebook ,
-                    uidFirebase,
+                    uidFirebase
             ) values (
                 %(nomeUsuario)s,
                 %(numeroCelular)s,
                 %(dddCelular)s,
                 CAST_TO_INTEGER (%(distanciaFeed)s ),
                 %(emailUsuario)s,
-                %(idFacebook)s,
+                "",
                 %(UidFirebase)s ) """
         rows = ''
         try:
@@ -33,6 +33,7 @@ class UsuarioDao:
             print (e)
             rows = {'RowsEffect': "0"}
 
+        print(sql, param)
         return rows
 
     def update_usuario(request, param):

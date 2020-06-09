@@ -7,7 +7,7 @@ class PostAnimalDao:
         cx = Conexao()
         cx.conectar()
 
-        sql = """ insert into Animais (
+        sql = """ insert into Animais ( 
                 idDono,
                 idPorte,
                 idTipo,
@@ -175,7 +175,7 @@ class PostAnimalDao:
             WHERE 
                 USU.cadastroAtivo = 'S' """
 
-        sql += clausura + " order by distanciaKM ASC , POST.horaCadastro desc limit 5"
+        sql += clausura + " order by distanciaKM ASC , POST.horaCadastro desc limit 3"
 
         posts = cx.select(sql, param)
 
@@ -213,11 +213,29 @@ class PostAnimalDao:
         return cx.select(sql, post)
 
 
+    def removeFotosPost(self, param):
+        cx = Conexao()
+        cx.conectar()
+        p = {'uidFirebase' : param['uidFirebase']}
+        sql = """ DELETE FROM FotosAnimal WHERE idAnimal in (
+            SELECT a.idAnimal FROM Animais a
+                inner join Usuarios u
+                    on a.idDono = u.Usuario
+                    AND u.uidFirebase  = %(uidFirebase)s 
+                WHERE a.cadastroAtivo = 'S'
+        )"""
+        try:
+            cx.executa(sql, p, True)
+        except Exception :
+            return False
+        return True
+
     def insere_imagem_post(self, param):
         cx = Conexao()
         cx.conectar()
         fotosInseridas = 0
-        for i in param['imagens'].split("***ROGER_LIMA_GAMBIARRA***"):
+
+        for i in param['imagens'].strip().split("***0ba)img&0@&e4**"):
             try:
                 sql = f"""INSERT INTO FotosAnimal (idAnimal	, imagem) VALUES (%(idAnimal)s, '{i}')"""
 

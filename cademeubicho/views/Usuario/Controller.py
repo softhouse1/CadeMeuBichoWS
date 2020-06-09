@@ -66,6 +66,8 @@ class Usuario:
         else:
             raise Http404
 
+
+        print(retorno)
         return JsonResponse(retorno, safe=False)
 
 

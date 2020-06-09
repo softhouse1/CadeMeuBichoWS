@@ -27,8 +27,11 @@ class PostAnimal:
             print(request.POST.dict())
 
             postAtivos = post.posts_ativo_usuario( paramAnimais )
-            if postAtivos[0]['qnt'] != 0:
-                retorno = { 'statusMensagem' : 'Usuário já possui um Post ativo', 'retorno' : 'false'}
+
+            if paramAnimais['uidFirebase'] == '':
+                retorno = {'statusMensagem': 'Usuário não autenticado', 'retorno': 'false'}
+            # elif postAtivos[0]['qnt'] != 0:
+            #     retorno = { 'statusMensagem' : 'Usuário já possui um Post ativo', 'retorno' : 'false'}
             elif len(imagens) <= 0:
                 retorno = {'statusMensagem': 'Escolha ao menos uma imagem', 'retorno': 'false'}
             else :
@@ -58,7 +61,7 @@ class PostAnimal:
         retorno = ''
         post = PostAnimalDao()
         if request.POST:
-            param = {
+            paramAnimais = {
                     'uidFirebase': request.POST.get('uidFirebase'),
                     'porteAnimal': request.POST.get('porteAnimal'),
                     'tipoAnimal': request.POST.get('tipoAnimal'),
@@ -69,13 +72,31 @@ class PostAnimal:
                     'recompensa': request.POST.get('recompensa'),
                     'longitude': request.POST.get('longitude'),
                     'latitude': request.POST.get('latitude')
-                     }
+            }
+            imagens = {'imagens': request.POST.get('imagens')}
 
-            rows = post.atualiza_post(param)
-            if rows['RowsEffect'] != 0:
-               retorno =  { 'statusMensagem': 'Post atualizado com sucesso', 'retorno' : 'true'}
+            if paramAnimais['uidFirebase'] == '':
+                retorno = {'statusMensagem': 'Usuário não autenticado', 'retorno': 'false'}
+            elif len(imagens) <= 0:
+                retorno = {'statusMensagem': 'Escolha ao menos uma imagem', 'retorno': 'false'}
             else:
-                retorno = { 'statusMensagem' : 'Erro ao atualizar post', 'retorno' : 'false'}
+                rows = post.atualiza_post(paramAnimais)
+                if rows['RowsEffect'] != "0":
+
+                    if "NAO_ALTERAR_IMAGEM" not in imagens:
+                        idAnimal = post.getIdPostAtivo(paramAnimais)[0]['CODIGO']
+                        imagens.update({'idAnimal': idAnimal})
+                        post.removeFotosPost(paramAnimais)
+                        fotosInseridas = post.insere_imagem_post(imagens)
+                    else :
+                        fotosInseridas = 1
+                    if fotosInseridas > 0:
+                        retorno = {'statusMensagem': 'Post atualizado com sucesso', 'retorno': 'true'}
+                    else:
+                        retorno = {'statusMensagem': 'Erro ao inserir imagens', 'retorno': 'false'}
+
+                else:
+                    retorno = {'statusMensagem': 'Erro ao atualizar post', 'retorno': 'false'}
         else:
             raise Http404
 
@@ -110,8 +131,8 @@ class PostAnimal:
         resul = []
         resul = post.get_post(param, False)
 
-        if resul == []:
-            resul = [{'statusMensagem': 'Nenhum post Localizado', 'retorno': 'false'}]
+        # if resul == []:
+        #     resul = [{'statusMensagem': 'Nenhum post Localizado', 'retorno': 'false'}]
         return JsonResponse({'Posts': resul})
 
     @csrf_exempt
@@ -125,8 +146,8 @@ class PostAnimal:
         resul = []
         resul = post.get_post(param, True)
 
-        if resul == [] :
-            resul = [{'statusMensagem' : 'Nenhum post Localizado', 'retorno' : 'false'}]
+        # if resul == [] :
+            # resul = [{'statusMensagem' : 'Nenhum post Localizado', 'retorno' : 'false'}]
         return JsonResponse({'Posts': resul})
 
 
