@@ -30,8 +30,8 @@ class PostAnimal:
 
             if paramAnimais['uidFirebase'] == '':
                 retorno = {'statusMensagem': 'Usuário não autenticado', 'retorno': 'false'}
-            # elif postAtivos[0]['qnt'] != 0:
-            #     retorno = { 'statusMensagem' : 'Usuário já possui um Post ativo', 'retorno' : 'false'}
+            elif postAtivos[0]['qnt'] != 0:
+                retorno = { 'statusMensagem' : 'Usuário já possui um Post ativo', 'retorno' : 'false'}
             elif len(imagens) <= 0:
                 retorno = {'statusMensagem': 'Escolha ao menos uma imagem', 'retorno': 'false'}
             else :
@@ -75,6 +75,8 @@ class PostAnimal:
             }
             imagens = {'imagens': request.POST.get('imagens')}
 
+
+            print(paramAnimais, imagens)
             if paramAnimais['uidFirebase'] == '':
                 retorno = {'statusMensagem': 'Usuário não autenticado', 'retorno': 'false'}
             elif len(imagens) <= 0:

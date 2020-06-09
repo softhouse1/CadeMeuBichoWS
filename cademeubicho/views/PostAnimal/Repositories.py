@@ -26,7 +26,7 @@ class PostAnimalDao:
                 upper(trim( %(racaAnimal)s  ) ),
                 CAST_TO_INTEGER (%(idadeAnimal)s ),
                 upper(trim( %(corAnimal)s  )),
-                0.00,
+                %(recompensa)s ,
                 trim( %(longitude)s  ),
                 trim( %(latitude)s  )
             FROM Usuarios u 
@@ -51,9 +51,8 @@ class PostAnimalDao:
                     racaAnimal = upper(trim( %(racaAnimal)s  )),
                     idadeAprox = CAST_TO_INTEGER (%(idadeAnimal)s ),
                     corAnimal = upper(trim( %(corAnimal)s  )),
-                    recompensa = 0.00,
-                    longitude = trim( %(longitude)s  ),
-                    latitude = trim( %(latitude)s  )
+                    recompensa = %(recompensa)s ,
+                    longitude = trim( %(longitude)s ), latitude = trim( %(latitude)s )
                 where cadastroAtivo = 'S'
                 and idDono  = 
                     (SELECT u.idUsuario FROM Usuarios u 
@@ -63,9 +62,13 @@ class PostAnimalDao:
                     ) """
 
         rows = ''
+
+        print (param, sql)
         try:
             rows = cx.executa(sql, param, True)
+            print("aaa", rows)
         except BaseException:
+            raise
             rows = {'RowsEffect': "0"}
 
         return rows
@@ -235,13 +238,14 @@ class PostAnimalDao:
         cx.conectar()
         fotosInseridas = 0
 
-        for i in param['imagens'].strip().split("***0ba)img&0@&e4**"):
+        for i in param['imagens'].split("***0ba)img&0@&e4**"):
             try:
-                sql = f"""INSERT INTO FotosAnimal (idAnimal	, imagem) VALUES (%(idAnimal)s, '{i}')"""
-
-                rows = cx.executa(sql, param, True)
-
-                fotosInseridas += 1
+                print(i)
+                if i != '' and i != 'NAO_ALTERAR_IMAGEM':
+                    sql = f"""INSERT INTO FotosAnimal (idAnimal	, imagem) VALUES (%(idAnimal)s, '{i}')"""
+                    print(sql)
+                    rows = cx.executa(sql, param, True)
+                    fotosInseridas += 1
             except BaseException:
                 fotosInseridas += 0
 
