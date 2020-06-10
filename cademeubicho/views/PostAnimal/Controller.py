@@ -24,7 +24,7 @@ class PostAnimal:
                      }
             imagens = { 'imagens' : request.POST.get('imagens') }
 
-
+            print(paramAnimais)
             postAtivos = post.posts_ativo_usuario( paramAnimais )
 
             if paramAnimais['uidFirebase'] == '':

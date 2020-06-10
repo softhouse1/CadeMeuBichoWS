@@ -36,9 +36,11 @@ class PostAnimalDao:
         rows = ''
         try:
             param['recompensa'] = float(param['recompensa'])
+            print(sql, param)
             rows = cx.executa(sql, param, True)
-        except BaseException:
+        except BaseException as e:
             rows = {'RowsEffect': "0", "Error" : rows}
+            print (e, rows)
 
         return rows
 
