@@ -45,19 +45,19 @@ class PostAnimalDao:
     def atualiza_post(request, param):
         cx = Conexao()
         cx.conectar()
-        sql = """ update Animais set  
-                    idPorte = get_id_porte (  %(porteAnimal)s ),
-                    idTipo = get_id_tipo_animal (  %(tipoAnimal)s ),
-                    nomeAnimal = upper(trim( %(nomeAnimal)s  )),
-                    racaAnimal = upper(trim( %(racaAnimal)s  )),
-                    idadeAprox = CAST_TO_INTEGER (%(idadeAnimal)s ),
-                    corAnimal = upper(trim( %(corAnimal)s  )),
-                    recompensa = %(recompensa)s ,
-                    longitude = trim( %(longitude)s ), latitude = trim( %(latitude)s )
+        sql = f""" Update Animais set  
+                    idPorte = get_id_porte ( '{param['porteAnimal']}'  ),
+                    idTipo = get_id_tipo_animal ( '{param['tipoAnimal']}'  ),
+                    nomeAnimal = upper(trim( '{param['nomeAnimal']}'  )),
+                    racaAnimal = upper(trim( '{param['racaAnimal']}'  )),
+                    idadeAprox = CAST_TO_INTEGER ( {param['idadeAnimal']} ),
+                    corAnimal = upper(trim( '{param['corAnimal']}' )),
+                    recompensa = {param['recompensa']},
+                    longitude = trim( '{param['longitude']}' ), latitude = trim( '{param['latitude']}' )
                 where cadastroAtivo = 'S'
                 and idDono  = 
                     (SELECT u.idUsuario FROM Usuarios u 
-                        WHERE u.uidFirebase  = %(uidFirebase)s
+                        WHERE u.uidFirebase  = '{param['uidFirebase']}'
                         and u.cadastroAtivo = 'S'
                         LIMIT 1
                     ) """
@@ -67,7 +67,7 @@ class PostAnimalDao:
         print (param, sql)
         try:
             param['recompensa'] = float(param['recompensa'])
-            rows = cx.executa(sql, param, True)
+            rows = cx.executa(sql, True)
             print(rows, param)
         except BaseException:
             raise
