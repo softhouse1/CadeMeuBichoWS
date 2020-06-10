@@ -67,7 +67,7 @@ class PostAnimalDao:
         print (param, sql)
         try:
             param['recompensa'] = float(param['recompensa'])
-            rows = cx.executa(sql, True)
+            rows = cx.executa(sql, commit=True)
             print(rows, param)
         except BaseException:
             raise
