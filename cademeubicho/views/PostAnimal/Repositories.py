@@ -66,7 +66,7 @@ class PostAnimalDao:
         print (param, sql)
         try:
             rows = cx.executa(sql, param, True)
-            print("aaa", rows)
+            print(rows, param)
         except BaseException:
             raise
             rows = {'RowsEffect': "0"}
