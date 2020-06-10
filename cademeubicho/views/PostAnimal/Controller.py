@@ -77,28 +77,35 @@ class PostAnimal:
 
 
             print(paramAnimais, imagens)
+
             if paramAnimais['uidFirebase'] == '':
                 retorno = {'statusMensagem': 'Usuário não autenticado', 'retorno': 'false'}
+
             elif len(imagens) <= 0:
                 retorno = {'statusMensagem': 'Escolha ao menos uma imagem', 'retorno': 'false'}
+
+            #PRONTO PARA EDICAO
             else:
                 rows = post.atualiza_post(paramAnimais)
                 if rows['RowsEffect'] != "0":
-                    fotosInseridas = 0
-                    if "NAO_ALTERAR_IMAGEM" not in imagens:
+
+
+                    if 'NAO_ALTERAR_IMAGEM' not in imagens:
                         idAnimal = post.getIdPostAtivo(paramAnimais)[0]['CODIGO']
                         imagens.update({'idAnimal': idAnimal})
                         post.removeFotosPost(paramAnimais)
                         fotosInseridas = post.insere_imagem_post(imagens)
                     else :
                         fotosInseridas = 1
+
                     if fotosInseridas > 0:
                         retorno = {'statusMensagem': 'Post atualizado com sucesso', 'retorno': 'true'}
                     else:
                         retorno = {'statusMensagem': 'Erro ao inserir imagens', 'retorno': 'false'}
 
                 else:
-                    retorno = {'statusMensagem': 'Erro ao atualizar post', 'retorno': 'false'}
+                    retorno = {'statusMensagem': 'Post não atualizado!', 'retorno': 'false'}
+
         else:
             raise Http404
 
