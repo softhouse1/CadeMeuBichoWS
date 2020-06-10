@@ -84,7 +84,7 @@ class PostAnimal:
                 if int(rows['RowsEffect'] ) >= 0:
 
                     print("IMAGENS", imagens)
-                    if  imagens != 'NAO_ALTERAR_IMAGEM':
+                    if  imagens['imagens'] != 'NAO_ALTERAR_IMAGEM':
                         idAnimal = post.getIdPostAtivo(paramAnimais)[0]['CODIGO']
                         imagens.update({'idAnimal': idAnimal})
                         post.removeFotosPost(paramAnimais)
