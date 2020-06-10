@@ -71,7 +71,7 @@ class PostAnimalDao:
             print(rows, param)
         except BaseException:
             raise
-            rows = {'RowsEffect': "0"}
+            rows = {'RowsEffect': -1}
 
         return rows
 

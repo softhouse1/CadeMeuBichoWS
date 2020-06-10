@@ -51,6 +51,6 @@ class UsuarioDao:
         try:
             rows = cx.executa(sql, param, True)
         except BaseException:
-            rows = {'RowsEffect': "0"}
+            rows = {'RowsEffect': -1}
 
         return rows

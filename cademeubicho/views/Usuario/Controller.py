@@ -97,7 +97,7 @@ class Usuario:
             userDao = UsuarioDao()
             rows = userDao.update_usuario(param)
             print (rows)
-            if rows['RowsEffect'] != "0":
+            if rows['RowsEffect'] >= 0:
                retorno =  { 'statusMensagem': 'Usuário atualizado com sucesso', 'retorno' : 'true'}
             else:
                 retorno = { 'statusMensagem' : 'Erro ao atualizar Usúario', 'retorno' : 'false'}
