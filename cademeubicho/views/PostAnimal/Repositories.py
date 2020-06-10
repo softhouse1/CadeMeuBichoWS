@@ -63,12 +63,9 @@ class PostAnimalDao:
                     ) """
 
         rows = ''
-
-        print (param, sql)
         try:
             param['recompensa'] = float(param['recompensa'])
             rows = cx.executa(sql, commit=True)
-            print(rows, param)
         except BaseException:
             raise
             rows = {'RowsEffect': -1}
@@ -193,8 +190,6 @@ class PostAnimalDao:
 
             del p['ID_POST']
 
-
-        print (param, posts)
         return posts
 
 
@@ -242,10 +237,9 @@ class PostAnimalDao:
 
         for i in param['imagens'].split("***0ba)img&0@&e4**"):
             try:
-                print(i)
+
                 if i != '' and i != 'NAO_ALTERAR_IMAGEM':
                     sql = f"""INSERT INTO FotosAnimal (idAnimal	, imagem) VALUES (%(idAnimal)s, '{i}')"""
-                    print(sql)
                     rows = cx.executa(sql, param, True)
                     fotosInseridas += 1
             except BaseException:

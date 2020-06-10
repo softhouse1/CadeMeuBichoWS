@@ -30,10 +30,8 @@ class UsuarioDao:
         try:
             rows = cx.executa(sql, param, True)
         except BaseException as e:
-            print (e)
             rows = {'RowsEffect': "0"}
 
-        print(sql, param)
         return rows
 
     def update_usuario(request, param):

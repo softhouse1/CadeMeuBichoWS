@@ -40,8 +40,6 @@ class Usuario:
         retorno = ''
         if request.POST:
             ld = LoginDao()
-            print(request)
-            print(request.POST)
             param = {
                     'UidFirebase': request.POST.get('uidFirebase'),
                     'nomeUsuario': request.POST.get('nomeUsuario'),
@@ -58,7 +56,6 @@ class Usuario:
 
                 userDao = UsuarioDao()
                 rows = userDao.insertUsuario(param)
-                print (rows)
                 if rows['RowsEffect'] != "0":
                    retorno =  { 'statusMensagem': 'Usuário cadastrado com sucesso', 'retorno' : 'true'}
                 else:
@@ -67,15 +64,12 @@ class Usuario:
             raise Http404
 
 
-        print(retorno)
         return JsonResponse(retorno, safe=False)
 
 
     @csrf_exempt
     def atualiza_usuario(request):
         retorno = ''
-        print(request)
-        print(request.POST)
         if request.POST:
             ld = LoginDao()
             param = {
@@ -96,7 +90,6 @@ class Usuario:
 
             userDao = UsuarioDao()
             rows = userDao.update_usuario(param)
-            print (rows)
             if int(rows['RowsEffect']) >= 0:
                retorno =  { 'statusMensagem': 'Usuário atualizado com sucesso', 'retorno' : 'true'}
             else:

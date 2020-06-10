@@ -24,7 +24,6 @@ class PostAnimal:
                      }
             imagens = { 'imagens' : request.POST.get('imagens') }
 
-            print(request.POST.dict())
 
             postAtivos = post.posts_ativo_usuario( paramAnimais )
 
@@ -38,8 +37,6 @@ class PostAnimal:
                 rows = post.insere_post(paramAnimais)
                 if rows['RowsEffect'] != "0":
                     idAnimal = post.getIdPostAtivo(paramAnimais)[0]['CODIGO']
-                    print(imagens)
-                    print(idAnimal)
                     imagens.update({'idAnimal' : idAnimal})
 
                     fotosInseridas = post.insere_imagem_post(imagens)
@@ -75,9 +72,6 @@ class PostAnimal:
             }
             imagens = {'imagens': request.POST.get('imagens')}
 
-
-            print(paramAnimais, imagens)
-
             if paramAnimais['uidFirebase'] == '':
                 retorno = {'statusMensagem': 'Usuário não autenticado', 'retorno': 'false'}
 
@@ -89,7 +83,8 @@ class PostAnimal:
                 rows = post.atualiza_post(paramAnimais)
                 if int(rows['RowsEffect'] ) >= 0:
 
-                    if 'NAO_ALTERAR_IMAGEM' not in imagens:
+                    print("IMAGENS", imagens)
+                    if  imagens != 'NAO_ALTERAR_IMAGEM':
                         idAnimal = post.getIdPostAtivo(paramAnimais)[0]['CODIGO']
                         imagens.update({'idAnimal': idAnimal})
                         post.removeFotosPost(paramAnimais)
@@ -118,7 +113,6 @@ class PostAnimal:
 
             posts = PostAnimalDao()
             rows = posts.desativa_post(param)
-            print (rows)
             if rows['RowsEffect'] != "0":
                retorno =  { 'statusMensagem': 'Post desativado com sucesso', 'retorno' : 'true'}
             else:
