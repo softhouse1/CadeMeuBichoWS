@@ -1,6 +1,7 @@
 from django.contrib.auth import login, logout
 from django.http import JsonResponse
 from django.http.response import Http404
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
 from .Repositories import LoginDao
@@ -36,3 +37,6 @@ class Login:
 
         return JsonResponse(resul[0], safe=False)
 
+
+    def privacidade(request):
+        return render(request, 'Politicas.html')

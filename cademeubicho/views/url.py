@@ -10,6 +10,7 @@ urlpatterns = [
 
     #AUTENTICACAO
     path('Login', Login.login),
+    path('PrivacyPolicy', Login.privacidade),
 
     # USUARIO
     path('CadastrarUsuario', Usuario.cadastra_usuario),
