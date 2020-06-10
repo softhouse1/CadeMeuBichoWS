@@ -87,7 +87,7 @@ class PostAnimal:
             #PRONTO PARA EDICAO
             else:
                 rows = post.atualiza_post(paramAnimais)
-                if rows['RowsEffect'] >= 0:
+                if int(rows['RowsEffect'] ) >= 0:
 
                     if 'NAO_ALTERAR_IMAGEM' not in imagens:
                         idAnimal = post.getIdPostAtivo(paramAnimais)[0]['CODIGO']
