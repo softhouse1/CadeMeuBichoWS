@@ -35,8 +35,10 @@ class PostAnimalDao:
             LIMIT 1  """
         rows = ''
         try:
-            param['recompensa'] = float(param['recompensa'])
-            print(sql, param)
+            if param['recompensa'] == '':
+               param['recompensa'] = 0.0
+            else:
+                param['recompensa'] = float(param['recompensa'])
             rows = cx.executa(sql, param, True)
         except BaseException as e:
             rows = {'RowsEffect': "0", "Error" : rows}
@@ -66,7 +68,11 @@ class PostAnimalDao:
 
         rows = ''
         try:
-            param['recompensa'] = float(param['recompensa'])
+            if param['recompensa'] == '':
+               param['recompensa'] = 0.0
+            else:
+                param['recompensa'] = float(param['recompensa'])
+
             rows = cx.executa(sql, commit=True)
         except BaseException:
             raise
