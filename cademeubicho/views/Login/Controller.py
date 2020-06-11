@@ -40,3 +40,7 @@ class Login:
 
     def privacidade(request):
         return render(request, 'Politicas.html')
+
+
+    def apresentacao(request):
+        return render(request, 'Apresentacao.html')

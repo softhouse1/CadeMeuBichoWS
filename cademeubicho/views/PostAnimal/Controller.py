@@ -27,7 +27,7 @@ class PostAnimal:
             print(paramAnimais)
             postAtivos = post.posts_ativo_usuario( paramAnimais )
 
-            if paramAnimais['uidFirebase'] == '':
+            if paramAnimais['uidFirebase'] == '' or paramAnimais['uidFirebase'] == None:
                 retorno = {'statusMensagem': 'Usuário não autenticado', 'retorno': 'false'}
             elif postAtivos[0]['qnt'] != 0:
                 retorno = { 'statusMensagem' : 'Usuário já possui um Post ativo', 'retorno' : 'false'}
