@@ -12,6 +12,7 @@ urlpatterns = [
     path('Login', Login.login),
     path('PrivacyPolicy', Login.privacidade),
     path('Apresentacao', Login.apresentacao),
+    path('/', Login.apresentacao),
 
     # USUARIO
     path('CadastrarUsuario', Usuario.cadastra_usuario),
